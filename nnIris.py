@@ -20,8 +20,8 @@ print(dataset.head(5))
 training_data = dataset.iloc[:100]
 test_data = dataset.iloc[100:]
 
-print(training_data.shape)
-print(test_data.shape)
+print("training data: " + str(training_data.shape))
+print("test data: " + str(test_data.shape))
 
 
 # number of input, hidden and output nodes
@@ -35,7 +35,7 @@ learning_rate = 0.125
 # create instance of neural network
 n = nn.NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
 
-print(n.getCountParams())
+print("count parameter: " + str(n.getCountParams()))
 
 epochs = 100
 
@@ -43,10 +43,6 @@ overallScore = []
 
 #training iteration
 for index_epochs, e in enumerate(range(epochs)):
-
-
-
-    #training_data = training_data.sample(frac=1).reset_index()
 
     for index_row, row in training_data.iterrows():
         inputs = numpy.zeros(input_nodes)
