@@ -1,3 +1,5 @@
+# implementation based on https://www.amazon.de/Make-Your-Own-Neural-Network/dp/1530826608
+
 import numpy
 # scipy.special for the sigmoid function expit(), and its inverse logit()
 import scipy.special

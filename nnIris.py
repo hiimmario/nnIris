@@ -30,19 +30,23 @@ hidden_nodes = 2
 output_nodes = 3
 
 # learning rate
-learning_rate = 0.15
+learning_rate = 0.125
 
 # create instance of neural network
 n = nn.NeuralNetwork(input_nodes, hidden_nodes, output_nodes, learning_rate)
 
 print(n.getCountParams())
 
-epochs = 180
+epochs = 100
 
 overallScore = []
 
 #training iteration
 for index_epochs, e in enumerate(range(epochs)):
+
+
+
+    #training_data = training_data.sample(frac=1).reset_index()
 
     for index_row, row in training_data.iterrows():
         inputs = numpy.zeros(input_nodes)
@@ -64,10 +68,9 @@ for index_epochs, e in enumerate(range(epochs)):
 
         n.train(inputs, targets)
 
+    scorecard = []
     # test iteration
     if(index_epochs % 2 == 0):
-
-        scorecard = []
 
         for index_row, row in test_data.iterrows():
             inputs = numpy.zeros(input_nodes)
@@ -100,13 +103,17 @@ for index_epochs, e in enumerate(range(epochs)):
                 # network's answer doesn't match correct answer, add 0 to scorecard
                 scorecard.append(0)
 
+
         scorecard_array = numpy.asarray(scorecard)
         print("\n" + str(index_epochs) + "/" + str(epochs) + " trained")
         print("accuracy: " + str(scorecard_array.sum() / scorecard_array.size))
 
         overallScore.append([index_epochs, scorecard_array.sum() / scorecard_array.size])
 
+
 x, y = numpy.array(overallScore).T
-plt.scatter(x, y)
-plt.ioff()
-plt.gcf().show()
+plt.plot(x, y)
+plt.xlabel('epochs')
+plt.ylabel('accuracy')
+plt.grid(True)
+plt.show()
